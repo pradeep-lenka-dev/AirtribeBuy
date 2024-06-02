@@ -6,7 +6,7 @@ const AppLayout = () => {
   return (
     <AppShell>
       <Header />
-      <AppShell.Main>
+      <AppShell.Main style={{paddingTop:"0px"}}>
         {/* <FilterAndSort /> */}
         <Outlet />
       </AppShell.Main>

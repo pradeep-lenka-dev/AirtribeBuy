@@ -31,14 +31,17 @@ const CartPage = () => {
     let total = 0;
 
     cartProductList.forEach((cartProduct) => {
-      total += Number(cartProduct.price);
+      total += Number(cartProduct.price) * cartProduct.quantity;
     });
 
     return total.toFixed(2); // Return total amount with 2 decimal places
   };
+  const calculateProductTotal = (cartProduct) => {
+    return (Number(cartProduct.price) * cartProduct.quantity).toFixed(2);
+  };
 
   return (
-    <Container>
+    <Container style={{marginTop:"45px"}}>
       <SimpleGrid>
         <Card withBorder shadow='sm' radius='md'>
           <Flex>
@@ -48,6 +51,44 @@ const CartPage = () => {
                   <Flex gap={20} p={10} direction='row' justify='left'>
                     <Box>
                       <Image h={100} fit='contain' src={cartProduct.image} />
+                      <Flex
+                        align='center'
+                        gap='md'
+                        style={{ marginTop: "5px" }}
+                      >
+                        <Button
+                          variant='outline'
+                          size='xs'
+                          color='gray'
+                          radius='xl'
+                        >
+                          -
+                        </Button>
+                        <Card
+                          withBorder
+                          padding='xs'
+                          shadow='sm'
+                          radius='sm'
+                          style={{
+                            width: "60px",
+                            height: "35",
+                            alignItems: "center",
+                            textAlign: "center",
+                            padding: "3px",
+                          }}
+                        >
+                          {cartProduct.quantity}
+                        </Card>
+
+                        <Button
+                          variant='outline'
+                          size='xs'
+                          color='gray'
+                          radius='xl'
+                        >
+                          +
+                        </Button>
+                      </Flex>
                     </Box>
                     <Flex direction='column' gap={10}>
                       <Text fontSize={15} fontWeight={600}>
@@ -67,7 +108,8 @@ const CartPage = () => {
                         </Badge>
                       </Flex>
                       <Text fontSize={20} fontWeight={800}>
-                        ₹{Number(cartProduct?.price).toFixed(2)}
+                      ₹{calculateProductTotal(cartProduct)}
+                        {/* ₹{Number(cartProduct?.price).toFixed(2)} */}
                       </Text>
                     </Flex>
                   </Flex>

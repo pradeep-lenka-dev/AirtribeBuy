@@ -5,6 +5,10 @@ import { UnstyledButton } from "@mantine/core";
 import { CiShoppingCart } from "react-icons/ci";
 import { ActionIcon } from "@mantine/core";
 import { Avatar } from "@mantine/core";
+import { FiHeart } from "react-icons/fi";
+
+
+
 
 const Header = () => {
   const [opened, { toggle }] = useDisclosure();
@@ -32,8 +36,21 @@ const Header = () => {
             </Text>
           </Flex>
           <TextInput visibleFrom='sm' placeholder='Search product' flex={1} />
-          <Flex visibleFrom='sm' gap={10} ml='auto'>
+          <Flex visibleFrom='sm' gap={2} ml='auto'>
             {/* <Button>Login</Button> */}
+
+            <ActionIcon
+              variant='transparent'
+              size='xl'
+              aria-label='Settings'
+              onClick={() => navigate("/cart")}
+              
+            >
+              <FiHeart
+                style={{ width: "60%", height: "60%", color: "black" }}
+                // stroke={1.5}
+              />
+            </ActionIcon>
 
             <ActionIcon
               variant='transparent'

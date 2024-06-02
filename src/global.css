@@ -15,8 +15,8 @@ main {
 }
 
 .product-card:hover {
-  filter: brightness(90%);
-  transform: scale(1.05);
+  /* filter: brightness(90%);
+  transform: scale(1.05); */
   /* transform: rotate(10deg); */
 }
 
@@ -31,4 +31,28 @@ main {
 
 .Buy {
   color: #F76707;
+}
+
+.wishlist-button-container {
+  /* display:contents; */
+  /* position: absolute; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mantine-Chip-label span{
+  display: contents;
+  color: #F76707;
+}
+
+.custom-chip-icon {
+  color: red; 
+  font-size: 24px; 
+  margin-right: 10px; 
+}
+
+.product-card:hover .wishlist-button-container {
+  opacity: 1;
 }

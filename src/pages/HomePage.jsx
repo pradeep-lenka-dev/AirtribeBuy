@@ -1,31 +1,58 @@
-import { Box, SimpleGrid, Image, Card, Flex, Text, Button,Rating } from "@mantine/core";
+import {
+  Box,
+  SimpleGrid,
+  Image,
+  Card,
+  Flex,
+  Text,
+  Button,
+  Rating,
+  Chip,
+} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { useGetAllProducts } from "../services/useProductServices";
 import { handelAddToCart } from "../services/usecartService";
-import FilterAndSort from "../components/FilterAndSort"
+import FilterAndSort from "../components/FilterAndSort";
+
+import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [products, loading] = useGetAllProducts();
+  const [wishlist, setWishlist] = useState({});
+  const [hoveredProduct, setHoveredProduct] = useState(null);
+
   if (loading) {
     return <p>Loading...</p>;
   }
+  const toggleWishlist = (product) => {
+    setWishlist((prevWishlist) => ({
+      ...prevWishlist,
+      [product.id]: !prevWishlist[product.id],
+    }));
+  };
 
   function addToCart(product) {
     handelAddToCart(product);
   }
 
   return (
-    <Box w='100%' style={{padding:'0', marginTop:'25px'}}>
+    <Box w='100%' style={{ padding: "0px", marginTop: "25px" }}>
       <FilterAndSort />
-      <SimpleGrid cols={{ base: 1, xs: 2, sm: 2, md: 4, lg: 4, xl: 4 }} style={{marginTop:'10px'}}>
+      <SimpleGrid
+        cols={{ base: 1, xs: 2, sm: 2, md: 4, lg: 4, xl: 4 }}
+        style={{ marginTop: "10px" }}
+      >
         {products.map((product) => (
           <Card
             className='product-card'
             shadow='sm'
             radius='md'
             key={product.id}
+            onMouseEnter={() => setHoveredProduct(product.id)}
+            onMouseLeave={() => setHoveredProduct(null)}
           >
             <Flex
               onClick={() => navigate(`/${product.id}`)}
@@ -33,7 +60,8 @@ const HomePage = () => {
               p={10}
               direction='column'
               justify='center'
-s            >
+              s
+            >
               <Box w='100%'>
                 <Image
                   h={200}
@@ -57,12 +85,35 @@ s            >
                 ₹{Number(product.price).toFixed(2)}
               </Text>
             </Flex>
-            <Flex justify='space-between' p={10}>
-              <Button style={{ backgroundColor: "#F76707" }} onClick={()=>{addToCart(product)}}>
+            {/* <Flex justify='space-between' p={10}> */}
+            {/* <Button style={{ backgroundColor: "#F76707" }} onClick={()=>{addToCart(product)}}>
                 Add To Cart
-              </Button>
-              <Button style={{ backgroundColor: "#533298" }}>Buy Now</Button>
-            </Flex>
+              </Button> */}
+            {hoveredProduct == product.id ? (
+              <div className='wishlist-button-container'>
+                <Chip
+                  variant='outline'
+                  size='xl'
+                  radius='sm'
+                  className='wishlistedchip,full-width-chip'
+                  checked={wishlist[product.id] || false}
+                  onChange={() => toggleWishlist(product)}
+                  icon=<></>
+                  style={{width:"10px"}}
+                >
+                  {wishlist[product.id] ? (
+                    <IconHeartFilled className='custom-chip-icon' />
+                  ) : (
+                    <IconHeart className='custom-chip-icon' />
+                  )}
+                  WISHLISTED
+                </Chip>
+              </div>
+            ) : (
+              <></>
+            )}
+
+            {/* </Flex> */}
           </Card>
         ))}
       </SimpleGrid>

@@ -35,7 +35,7 @@ const ProductDetailsPage = () => {
     return <p>Loading...</p>;
   }
   return (
-    <Stack gap='lg' w='100%'>
+    <Stack gap='lg' w='100%' style={{marginTop:"45px"}}>
       <SimpleGrid
         cols={{ base: 1, xs: 1, sm: 1, md: 2, lg: 2, xl: 2 }}
         w='100%'
