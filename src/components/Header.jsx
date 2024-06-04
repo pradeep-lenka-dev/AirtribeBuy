@@ -43,7 +43,7 @@ const Header = () => {
               variant='transparent'
               size='xl'
               aria-label='Settings'
-              onClick={() => navigate("/cart")}
+              onClick={() => navigate("/wishlist")}
               
             >
               <FiHeart

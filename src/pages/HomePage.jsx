@@ -5,7 +5,6 @@ import {
   Card,
   Flex,
   Text,
-  Button,
   Rating,
   Chip,
 } from "@mantine/core";
@@ -17,12 +16,17 @@ import { handelAddToCart } from "../services/usecartService";
 import FilterAndSort from "../components/FilterAndSort";
 
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
+import {useDispatch } from "react-redux";
+import { addWishlist } from "../store/wishListSlice";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [products, loading] = useGetAllProducts();
   const [wishlist, setWishlist] = useState({});
   const [hoveredProduct, setHoveredProduct] = useState(null);
+
+  // const wishlistProduct = useSelector((state)=>state.WishlistProduct.value);
+  const dispatch = useDispatch();
 
   if (loading) {
     return <p>Loading...</p>;
@@ -33,7 +37,9 @@ const HomePage = () => {
       [product.id]: !prevWishlist[product.id],
     }));
   };
-
+ const handelAddToWishlist=(product)=>{
+    dispatch(addWishlist(product))
+  }
   function addToCart(product) {
     handelAddToCart(product);
   }
@@ -42,7 +48,7 @@ const HomePage = () => {
     <Box w='100%' style={{ padding: "0px", marginTop: "25px" }}>
       <FilterAndSort />
       <SimpleGrid
-        cols={{ base: 1, xs: 2, sm: 2, md: 4, lg: 4, xl: 4 }}
+        cols={{ base: 1, xs: 2, sm: 2, md: 4, lg: 6, xl: 6 }}
         style={{ marginTop: "10px" }}
       >
         {products.map((product) => (
@@ -70,14 +76,14 @@ const HomePage = () => {
                   alt='Product image'
                 />
               </Box>
-              <Text fz={15} fw={600}>
+              <Text fz={15} fw={600} className="product-title ">
                 {product.title}
               </Text>
               <Flex align='center' gap={10}>
                 {product?.rating?.rate ? (
                   <Rating defaultValue={product.rating.rate} />
                 ) : null}
-                <Text c='dimmed' fz={20} fw={500}>
+                <Text c='dimmed' fz={10} fw={500}>
                   {product?.rating?.count ?? 0} Reviews
                 </Text>
               </Flex>
@@ -93,13 +99,14 @@ const HomePage = () => {
               <div className='wishlist-button-container'>
                 <Chip
                   variant='outline'
-                  size='xl'
+                  size='md'
                   radius='sm'
                   className='wishlistedchip,full-width-chip'
                   checked={wishlist[product.id] || false}
                   onChange={() => toggleWishlist(product)}
+                  onClick={()=>handelAddToWishlist(product)}
                   icon=<></>
-                  style={{width:"10px"}}
+                  style={{ width: "10px" }}
                 >
                   {wishlist[product.id] ? (
                     <IconHeartFilled className='custom-chip-icon' />

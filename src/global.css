@@ -56,3 +56,10 @@ main {
 .product-card:hover .wishlist-button-container {
   opacity: 1;
 }
+
+.product-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}

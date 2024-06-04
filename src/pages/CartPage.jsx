@@ -10,6 +10,7 @@ import {
   Rating,
   Badge,
   Button,
+  ScrollArea
 } from "@mantine/core";
 import { useState } from "react";
 const CartPage = () => {
@@ -44,6 +45,7 @@ const CartPage = () => {
     <Container style={{marginTop:"45px"}}>
       <SimpleGrid>
         <Card withBorder shadow='sm' radius='md'>
+      <ScrollArea h={550}>
           <Flex>
             <Box flex={4} pl={5}>
               {cartProductList.map((cartProduct) => (
@@ -117,6 +119,7 @@ const CartPage = () => {
               ))}
             </Box>
           </Flex>
+        </ScrollArea>
           <Flex
             flex={1}
             position='fixed'

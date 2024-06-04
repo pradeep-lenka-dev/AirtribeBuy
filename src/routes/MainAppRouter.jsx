@@ -5,6 +5,7 @@ import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
 
 import PrivateRouter from "./PrivateRouter";
+import WishListPage from "../pages/WishListPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             <HomePage />
           </PrivateRouter>
         ),
+      },
+      {
+        path:"/wishlist",
+        element:<WishListPage/>
       },
       {
         path: "/checkout",
