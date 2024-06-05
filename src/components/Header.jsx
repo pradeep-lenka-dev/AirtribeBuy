@@ -76,7 +76,14 @@ const Header = () => {
           variant="transparent"
           size="xl"
           aria-label="Cart"
-          onClick={() => navigate("/cart")}
+          // onClick={() => navigate("/cart")}
+          onClick={() => {
+            if (!localStorage.getItem("AuthToken")) {
+              showModal();
+            } else {
+              navigate("/cart");
+            }
+          }}
         >
           <CiShoppingCart style={{ width: "70%", height: "70%", color: "black" }} />
         </ActionIcon>

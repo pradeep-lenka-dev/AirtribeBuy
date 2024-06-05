@@ -1,6 +1,6 @@
 // src/ModalContext.js
 import { createContext, useContext, useState } from "react";
-import { Modal, ModalTitle } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import {
   TextInput,
   PasswordInput,
