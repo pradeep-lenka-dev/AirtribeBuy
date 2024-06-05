@@ -2,6 +2,7 @@ import { MantineProvider, createTheme } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { store } from "../src/store/store";
 import { Provider } from "react-redux";
+import { ModalProvider } from "./context/ModalContext";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "./global.css";
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <MantineProvider theme={theme}>
     <Notifications position='top-center' />
     <Provider store={store}>
-      <MainAppRouter />
+      <ModalProvider>
+        <MainAppRouter />
+      </ModalProvider>
     </Provider>
   </MantineProvider>
 );
