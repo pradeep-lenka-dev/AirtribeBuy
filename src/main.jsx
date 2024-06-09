@@ -13,6 +13,7 @@ const theme = createTheme({});
 ReactDOM.createRoot(document.getElementById("root")).render(
   <MantineProvider theme={theme}>
     <Notifications position='top-center' />
+
     <Provider store={store}>
       <ModalProvider>
         <MainAppRouter />

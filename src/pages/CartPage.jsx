@@ -13,10 +13,18 @@ import {
   ScrollArea
 } from "@mantine/core";
 import { useState } from "react";
+import { useCart } from "../context/CartProductContext";
+
+
+
+
 const CartPage = () => {
-  const cartProductList = useGetCartProduct();
+  const userId = "exampleUserId";
+  // const cartProductList = useGetCartProduct(userId);
   const [isSticky, setIsSticky] = useState(false);
-  if (!cartProductList) {
+  const {cartItems } = useCart();
+
+  if (!cartItems) {
     return <p>Your Cart is ematy</p>;
   }
   const handleScroll = () => {
@@ -31,8 +39,10 @@ const CartPage = () => {
   const calculateTotal = () => {
     let total = 0;
 
-    cartProductList.forEach((cartProduct) => {
-      total += Number(cartProduct.price) * cartProduct.quantity;
+    cartItems.forEach((cartProduct) => {
+      // console.log("🚀 ~ cartItems.forEach ~ cartProduct:", cartProduct.price)
+      total = total + Number(cartProduct.price) * cartProduct.quantity;
+      console.log("🚀 ~ cartItems.forEach ~ total:", total)
     });
 
     return total.toFixed(2); // Return total amount with 2 decimal places
@@ -48,7 +58,7 @@ const CartPage = () => {
       <ScrollArea h={550}>
           <Flex>
             <Box flex={4} pl={5}>
-              {cartProductList.map((cartProduct) => (
+              {cartItems.map((cartProduct) => (
                 <Card key={cartProduct.id} shadow='sm' radius='md' mb={3}>
                   <Flex gap={20} p={10} direction='row' justify='left'>
                     <Box>
@@ -135,7 +145,7 @@ const CartPage = () => {
               variant='filled'
               color='#F76707'
               size='lg'
-              disabled={cartProductList.length === 0}
+              disabled={cartItems.length === 0}
               //   onClick={handlePlaceOrder}
             >
               Place Order

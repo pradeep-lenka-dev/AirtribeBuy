@@ -16,8 +16,9 @@ import { handelAddToCart } from "../services/usecartService";
 import FilterAndSort from "../components/FilterAndSort";
 
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addWishlist } from "../store/wishListSlice";
+import { Loader } from '@mantine/core';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -29,7 +30,9 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Flex justify="center" align="center" w="100%" h="100vh">
+      <Loader color="blue" type="dots" size="xl" />;
+    </Flex>
   }
   const toggleWishlist = (product) => {
     setWishlist((prevWishlist) => ({
@@ -37,7 +40,7 @@ const HomePage = () => {
       [product.id]: !prevWishlist[product.id],
     }));
   };
- const handelAddToWishlist=(product)=>{
+  const handelAddToWishlist = (product) => {
     dispatch(addWishlist(product))
   }
   function addToCart(product) {
@@ -96,26 +99,24 @@ const HomePage = () => {
                 Add To Cart
               </Button> */}
             {hoveredProduct == product.id ? (
-              <div className='wishlist-button-container'>
-                <Chip
-                  variant='outline'
-                  size='md'
-                  radius='sm'
-                  className='wishlistedchip,full-width-chip'
-                  checked={wishlist[product.id] || false}
-                  onChange={() => toggleWishlist(product)}
-                  onClick={()=>handelAddToWishlist(product)}
-                  icon=<></>
-                  style={{ width: "10px" }}
-                >
-                  {wishlist[product.id] ? (
-                    <IconHeartFilled className='custom-chip-icon' />
-                  ) : (
-                    <IconHeart className='custom-chip-icon' />
-                  )}
-                  WISHLISTED
-                </Chip>
-              </div>
+            <div className="wishlist-button-container">
+            <Chip
+              variant="outline"
+              size="md"
+              radius="sm"
+              className="full-width-chip"
+              checked={wishlist[product.id] || false}
+              onChange={() => toggleWishlist(product)}
+              onClick={() => handelAddToWishlist(product)}
+            >
+              {wishlist[product.id] ? (
+                <IconHeartFilled className="custom-chip-icon" />
+              ) : (
+                <IconHeart className="custom-chip-icon" />
+              )}
+              WISHLISTED
+            </Chip>
+          </div>
             ) : (
               <></>
             )}

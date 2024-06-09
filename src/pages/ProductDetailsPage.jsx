@@ -11,14 +11,16 @@ import {
   Card,
   Spoiler
 } from "@mantine/core";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, json } from "react-router-dom";
 import {
   useGetProductDetails,
   useGetAllProductsInCategory,
 } from "../services/useProductServices";
 import { CATEGORY } from "../constants/category";
 import { handelAddToCart } from "../services/usecartService";
-
+import { useState, useEffect } from "react";
+import { Loader } from '@mantine/core';
+import { useCart } from "../context/CartProductContext";
 
 
 const ProductDetailsPage = () => {
@@ -26,16 +28,27 @@ const ProductDetailsPage = () => {
   const params = useParams();
   const [product, loading] = useGetProductDetails(params.productId);
   const [products] = useGetAllProductsInCategory(product.category);
+  const [cartIteam, setCart] = useState([])
+  const { addToCart} = useCart();
+
   // handeladdToCart(product)
 
   const AddToCart = (product) => {
-    handelAddToCart(product);
+    addToCart(product);
+    // handelAddToCart(product,userId);
+    // setCart()
+    setCart((prevItems) => [...prevItems, product]);
   };
+  // useEffect(()=>{
+  //   localStorage.setItem('cartProduct',JSON.stringify(cartIteam))
+  // },[cartIteam])
   if (loading) {
-    return <p>Loading...</p>;
+    return <Flex justify="center" align="center" w="100%" h="100vh">
+      <Loader color="blue" type="dots" size="xl" />;
+    </Flex>
   }
   return (
-    <Stack gap='lg' w='100%' style={{marginTop:"45px"}}>
+    <Stack gap='lg' w='100%' style={{ marginTop: "45px" }}>
       <SimpleGrid
         cols={{ base: 1, xs: 1, sm: 1, md: 2, lg: 2, xl: 2 }}
         w='100%'

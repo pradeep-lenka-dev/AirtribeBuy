@@ -9,23 +9,33 @@ import { FiHeart } from "react-icons/fi";
 
 import { useModal } from "../context/ModalContext";
 import { useEffect,useState } from "react";
+import { useGetCartProduct } from "../services/usecartService";
+import { useCart } from "../context/CartProductContext";
 
 
 
 const Header = () => {
+  const { cartItems } = useCart();
+  console.log("kkk",cartItems)
   const [opened, { toggle }] = useDisclosure();
-  const [totalCart,setTotal]=useState([])
+  // const [totalCart,setTotal]=useState([])
   const navigate = useNavigate();
   const [openeModal, { open, close }] = useDisclosure(false);
   const {showModal} =   useModal();
   console.log('showModal:', showModal); // Add this log
+  const userId = "exampleUserId";
+  
 
-  useEffect(()=>{
-    const cartProducts = JSON.parse(localStorage.getItem("cartProduct")) || [];
-    console.log("🚀 ~ useEffect ~ cartTotal:", cartProducts)
-    setTotal(cartProducts.length)
+const cartProducts = useGetCartProduct(userId);
+const totalCart = cartProducts.length
+// setTotal(cartProducts.length)
+  // useEffect(()=>{
     
-  },[])
+  //   const cartProducts = JSON.parse(localStorage.getItem("cartProduct")) || [];
+  //   console.log("🚀 ~ useEffect ~ cartTotal:", cartProducts)
+  //   setTotal(cartProducts.length)
+    
+  // })
   
 
   const handleClick = () => {
@@ -71,7 +81,7 @@ const Header = () => {
               />
             </ActionIcon>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-      <Indicator color="red" label={totalCart} size={15} offset={7}>
+      <Indicator color="red" label={cartItems.length} size={15} offset={7}>
         <ActionIcon
           variant="transparent"
           size="xl"

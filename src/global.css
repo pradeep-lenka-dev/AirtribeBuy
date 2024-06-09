@@ -36,6 +36,8 @@ main {
 .wishlist-button-container {
   /* display:contents; */
   /* position: absolute; */
+  display: flex;
+  justify-content: center;
   bottom: 0;
   left: 0;
   width: 100%;
