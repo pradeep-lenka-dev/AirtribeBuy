@@ -1,4 +1,4 @@
-import { AppShell, Burger, Button, Flex, Text,Input, TextInput,Modal,Indicator} from "@mantine/core";
+import { AppShell, Burger, Button, Flex, Text, Input, TextInput, Modal, Indicator, Menu, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 import { UnstyledButton } from "@mantine/core";
@@ -8,35 +8,45 @@ import { Avatar } from "@mantine/core";
 import { FiHeart } from "react-icons/fi";
 
 import { useModal } from "../context/ModalContext";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetCartProduct } from "../services/usecartService";
 import { useCart } from "../context/CartProductContext";
 
-
+import {
+  IconSettings,
+  IconUser,
+  IconLogout,
+  IconSearch,
+  IconPhoto,
+  IconMessageCircle,
+  IconTrash,
+  IconArrowsLeftRight,
+  IconLogin,
+} from '@tabler/icons-react';
 
 const Header = () => {
   const { cartItems } = useCart();
-  console.log("kkk",cartItems)
+  console.log("kkk", cartItems)
   const [opened, { toggle }] = useDisclosure();
   // const [totalCart,setTotal]=useState([])
   const navigate = useNavigate();
   const [openeModal, { open, close }] = useDisclosure(false);
-  const {showModal} =   useModal();
+  const { showModal } = useModal();
   console.log('showModal:', showModal); // Add this log
   const userId = "exampleUserId";
-  
 
-const cartProducts = useGetCartProduct(userId);
-const totalCart = cartProducts.length
-// setTotal(cartProducts.length)
+
+  const cartProducts = useGetCartProduct(userId);
+  const totalCart = cartProducts.length
+  // setTotal(cartProducts.length)
   // useEffect(()=>{
-    
+
   //   const cartProducts = JSON.parse(localStorage.getItem("cartProduct")) || [];
   //   console.log("🚀 ~ useEffect ~ cartTotal:", cartProducts)
   //   setTotal(cartProducts.length)
-    
+
   // })
-  
+
 
   const handleClick = () => {
     showModal();
@@ -63,7 +73,6 @@ const totalCart = cartProducts.length
             </Text>
           </Flex>
           <TextInput visibleFrom='sm' placeholder='Search product' flex={1} />
-          <Button onClick={handleClick}>Login</Button>
 
           <Flex visibleFrom='sm' gap={2} ml='auto'>
             {/* <Button>Login</Button> */}
@@ -73,33 +82,59 @@ const totalCart = cartProducts.length
               size='xl'
               aria-label='Settings'
               onClick={() => navigate("/wishlist")}
-              
+
             >
               <FiHeart
                 style={{ width: "60%", height: "60%", color: "black" }}
-                // stroke={1.5}
+              // stroke={1.5}
               />
             </ActionIcon>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-      <Indicator color="red" label={cartItems.length} size={15} offset={7}>
-        <ActionIcon
-          variant="transparent"
-          size="xl"
-          aria-label="Cart"
-          // onClick={() => navigate("/cart")}
-          onClick={() => {
-            if (!localStorage.getItem("AuthToken")) {
-              showModal();
-            } else {
-              navigate("/cart");
-            }
-          }}
-        >
-          <CiShoppingCart style={{ width: "70%", height: "70%", color: "black" }} />
-        </ActionIcon>
-      </Indicator>
-    </div>
-            <Avatar color='black' alt="it's me" />
+              <Indicator color="red" label={cartItems.length} size={15} offset={7}>
+                <ActionIcon
+                  variant="transparent"
+                  size="xl"
+                  aria-label="Cart"
+                  // onClick={() => navigate("/cart")}
+                  onClick={() => {
+                    if (!localStorage.getItem("AuthToken")) {
+                      showModal();
+                    } else {
+                      navigate("/cart");
+                    }
+                  }}
+                >
+                  <CiShoppingCart style={{ width: "70%", height: "70%", color: "black" }} />
+                </ActionIcon>
+              </Indicator>
+            </div>
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+
+                <Avatar color='black' alt="it's me" />
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}>
+                  Settings
+                </Menu.Item>
+                <Menu.Item leftSection={<IconUser style={{ width: rem(14), height: rem(14) }} />}>
+                  profile
+                </Menu.Item>
+                <Menu.Item
+                  color="blue"
+                  leftSection={<IconLogin style={{ width: rem(14), height: rem(14) }} />}
+                  onClick={handleClick}
+                >
+                  Login
+                </Menu.Item>
+                <Menu.Item
+                  color="red"
+                  leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />}
+                >
+                  Logout
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
 
             {/* <UnstyledButton>
               <VscAccount style={{ fontSize: "25px" }} />
@@ -111,12 +146,12 @@ const totalCart = cartProducts.length
       <AppShell.Navbar hiddenFrom='sm' p='md'>
         Navbar
       </AppShell.Navbar>
-      <Modal opened={openeModal} onClose={close} title="Authentication" centered   transitionProps={{ transition: 'fade', duration: 600, timingFunction: 'linear' }}
->
+      <Modal opened={openeModal} onClose={close} title="Authentication" centered transitionProps={{ transition: 'fade', duration: 600, timingFunction: 'linear' }}
+      >
         {/* Modal content */}
       </Modal>
     </AppShell>
-    
+
   );
 };
 
