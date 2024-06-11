@@ -1,14 +1,12 @@
 import { AppShell, Burger, Button, Flex, Text, Input, TextInput, Modal, Indicator, Menu, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
-import { UnstyledButton } from "@mantine/core";
 import { CiShoppingCart } from "react-icons/ci";
 import { ActionIcon } from "@mantine/core";
 import { Avatar } from "@mantine/core";
 import { FiHeart } from "react-icons/fi";
 
 import { useModal } from "../context/ModalContext";
-import { useEffect, useState } from "react";
 import { useGetCartProduct } from "../services/usecartService";
 import { useCart } from "../context/CartProductContext";
 
@@ -16,11 +14,6 @@ import {
   IconSettings,
   IconUser,
   IconLogout,
-  IconSearch,
-  IconPhoto,
-  IconMessageCircle,
-  IconTrash,
-  IconArrowsLeftRight,
   IconLogin,
 } from '@tabler/icons-react';
 
@@ -38,15 +31,6 @@ const Header = () => {
 
   const cartProducts = useGetCartProduct(userId);
   const totalCart = cartProducts.length
-  // setTotal(cartProducts.length)
-  // useEffect(()=>{
-
-  //   const cartProducts = JSON.parse(localStorage.getItem("cartProduct")) || [];
-  //   console.log("🚀 ~ useEffect ~ cartTotal:", cartProducts)
-  //   setTotal(cartProducts.length)
-
-  // })
-
 
   const handleClick = () => {
     showModal();
@@ -75,14 +59,12 @@ const Header = () => {
           <TextInput visibleFrom='sm' placeholder='Search product' flex={1} />
 
           <Flex visibleFrom='sm' gap={2} ml='auto'>
-            {/* <Button>Login</Button> */}
 
             <ActionIcon
               variant='transparent'
               size='xl'
               aria-label='Settings'
               onClick={() => navigate("/wishlist")}
-
             >
               <FiHeart
                 style={{ width: "60%", height: "60%", color: "black" }}
@@ -95,7 +77,6 @@ const Header = () => {
                   variant="transparent"
                   size="xl"
                   aria-label="Cart"
-                  // onClick={() => navigate("/cart")}
                   onClick={() => {
                     if (!localStorage.getItem("AuthToken")) {
                       showModal();
@@ -135,10 +116,6 @@ const Header = () => {
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>
-
-            {/* <UnstyledButton>
-              <VscAccount style={{ fontSize: "25px" }} />
-            </UnstyledButton> */}
           </Flex>
           <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
         </Flex>
