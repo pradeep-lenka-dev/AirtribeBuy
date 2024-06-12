@@ -23,33 +23,32 @@ const CartPage = () => {
   // const cartProductList = useGetCartProduct(userId);
   const [isSticky, setIsSticky] = useState(false);
   const { cartItems } = useCart();
-  console.log("🚀 ~ CartPage ~ cartItems:", cartItems)
 
   if (cartItems.length == 0) {
-    return       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  }}>
-    <Card mt={50} padding="lg" radius="md" style={{ width: '50%', textAlign: 'center' }}>
-      <Card.Section>
-        <Image
-          src="public/emtycart.png"
-          height={300}
-          alt="Norway"
-          fit="contain"
-        />
-      </Card.Section>
-      
-      
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+      <Card mt={50} padding="lg" radius="md" style={{ width: '50%', textAlign: 'center' }}>
+        <Card.Section>
+          <Image
+            src="/emtycart.png"
+            height={300}
+            alt="Norway"
+            fit="contain"
+          />
+        </Card.Section>
 
-      <Text mt="xl" fw={500} color="pink">Your Cart is empty</Text>
 
-      <Text size="sm" c="dimmed">
-        Add something to make me happy :)
-      </Text>
 
-      <Button color="blue" fullWidth mt="xl" radius="md">
-        Continue Shopping
-      </Button>
-    </Card>
-  </div>
+        <Text mt="xl" fw={500} color="pink">Your Cart is empty</Text>
+
+        <Text size="sm" c="dimmed">
+          Add something to make me happy :)
+        </Text>
+
+        <Button color="blue" fullWidth mt="xl" radius="md">
+          Continue Shopping
+        </Button>
+      </Card>
+    </div>
   }
   const handleScroll = () => {
     if (window.pageYOffset > 100) {
