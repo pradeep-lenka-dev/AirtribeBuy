@@ -63,7 +63,6 @@ const CartPage = () => {
     let total = 0;
 
     cartItems.forEach((cartProduct) => {
-      // console.log("🚀 ~ cartItems.forEach ~ cartProduct:", cartProduct.price)
       total = total + Number(cartProduct.price) * cartProduct.quantity;
       console.log("🚀 ~ cartItems.forEach ~ total:", total)
     });

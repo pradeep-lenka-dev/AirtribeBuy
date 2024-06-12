@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { cartProduct } from "../firebaseConfig/firebaseConfig";
+import { db } from "../firebaseConfig/firebaseConfig";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { notifications } from "@mantine/notifications";
 
@@ -14,7 +14,7 @@ export const CartProvider = ({ children, userId }) => {
     if (!userId) return;
 
     const fetchCartItems = async () => {
-      const userCartRef = doc(cartProduct, "carts", userId);
+      const userCartRef = doc(db, "carts", userId);
       const cartDoc = await getDoc(userCartRef);
 
       if (cartDoc.exists()) {
@@ -28,7 +28,7 @@ export const CartProvider = ({ children, userId }) => {
   }, [userId]);
 
   const addToCart = async (product) => {
-    const userCartRef = doc(cartProduct, "carts", userId);
+    const userCartRef = doc(db, "carts", userId);
     const cartDoc = await getDoc(userCartRef);
 
     if (!cartDoc.exists()) {

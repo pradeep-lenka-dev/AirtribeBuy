@@ -20,6 +20,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const airtribebuyCartDB = getStorage (app)
-const cartProduct = getFirestore(app)
+const db = getFirestore(app)
 
-export {airtribebuyCartDB, cartProduct}
+export {airtribebuyCartDB, db}

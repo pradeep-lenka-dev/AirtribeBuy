@@ -2,7 +2,7 @@
 import { notifications } from "@mantine/notifications";
 import { useState, useEffect } from "react";
 import {airtribebuyCartDB} from "../firebaseConfig/firebaseConfig"
-import { cartProduct } from "../firebaseConfig/firebaseConfig";
+import { db } from "../firebaseConfig/firebaseConfig";
 import { v4 } from "uuid"; 
 import { ref, uploadBytes } from "firebase/storage";
 import { collection } from "firebase/firestore";
@@ -54,7 +54,7 @@ export function useGetCartProduct(userId) {
   useEffect(() => {
     async function getCartProduct() {
       try {
-        const docRef = doc(cartProduct, "carts", userId); // Correct usage
+        const docRef = doc(db, "carts", userId); // Correct usage
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setProducts(docSnap.data().items || []);
