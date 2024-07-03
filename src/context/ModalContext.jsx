@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { addUser } from "../services/usersService";
+import { loginUser } from "../services/usersService";
 
 const ModalContext = createContext();
 
@@ -74,9 +75,7 @@ export const ModalProvider = ({ children }) => {
   const submitLoginForm = async (event) => {
     event.preventDefault();
     if (!loginForm.validate().hasErrors) {
-      console.log("Form Submitted", loginForm.values);
-
-      localStorage.setItem("AuthToken", "userdummyauthtoken");
+      await loginUser(loginForm.values);
       closeModal();
     }
   };
@@ -84,9 +83,7 @@ export const ModalProvider = ({ children }) => {
   const submitSignupForm = async (event) => {
     event.preventDefault();
     if (!signupForm.validate().hasErrors) {
-      console.log("Form Submitted", signupForm.values);
       await addUser(signupForm.values);
-
       localStorage.setItem("AuthToken", "userdummyauthtoken");
       closeModal();
     }

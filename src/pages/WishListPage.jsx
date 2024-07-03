@@ -9,17 +9,19 @@ import {
   CloseButton
 } from "@mantine/core";
 import { useSelector } from "react-redux";
+import { useWishList } from "../context/WishListContext";
 
 const WishListPage = () => {
-  const wishListProductList = useSelector((state) => state.addWishlist);
+  // const wishListProductList = useSelector((state) => state.addWishlist);
+  const wishListProductList = useWishList()
   return (
     <Container style={{ marginTop: "60px" }}>
       <Title order={3}>
-        My Wishlist {wishListProductList.WishlistProduct.length} items
+        My Wishlist {wishListProductList.wishListItems.length} items
       </Title>
 
       <SimpleGrid cols={4} spacing='sm' verticalSpacing='sm'>
-        {wishListProductList.WishlistProduct.map((wishListProduct) => (
+        {wishListProductList.wishListItems.map((wishListProduct) => (
           <Card
             shadow='sm'
             w={200}
@@ -28,26 +30,26 @@ const WishListPage = () => {
             withBorder
             key={wishListProduct.id}
           >
-<CloseButton
-                title="Remove from wishlist"
-                size="lg"
-                iconSize={20}
-                radius="xl"
-                style={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "10px",
-                  zIndex: 1,
-                }}
-              />
+            <CloseButton
+              title="Remove from wishlist"
+              size="lg"
+              iconSize={20}
+              radius="xl"
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                zIndex: 1,
+              }}
+            />
             <Card.Section padding={5}>
-              <Image src={wishListProduct.image} height={160} fit='contain' style={{margin:"5px", padding:"5px"}}/>
+              <Image src={wishListProduct.image} height={160} fit='contain' style={{ margin: "5px", padding: "5px" }} />
             </Card.Section>
             <Flex direction='column' wrap='wrap'>
               <Text lineClamp={1} fw={500}>{wishListProduct.title}</Text>
               <Text ta="center" fw={700}>Rs.{wishListProduct.price}</Text>
             </Flex>
-            <Card.Section withBorder inheritPadding py='xs' style={{cursor:"pointer"}}>
+            <Card.Section withBorder inheritPadding py='xs' style={{ cursor: "pointer" }}>
               <Text c='red' ta='center' align='center' padding={5}>
                 MOVE TO CART
               </Text>

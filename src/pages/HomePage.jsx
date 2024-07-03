@@ -9,7 +9,7 @@ import {
   Chip,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useGetAllProducts } from "../services/useProductServices";
 import { handelAddToCart } from "../services/usecartService";
@@ -17,17 +17,17 @@ import FilterAndSort from "../components/FilterAndSort";
 
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
-import { addWishlist } from "../store/wishListSlice";
+// import { addWishlist } from "../store/wishListSlice";
 import { Loader } from '@mantine/core';
+import { useWishList } from "../context/WishListContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [products, loading] = useGetAllProducts();
   const [wishlist, setWishlist] = useState({});
   const [hoveredProduct, setHoveredProduct] = useState(null);
-
-  // const wishlistProduct = useSelector((state)=>state.WishlistProduct.value);
-  const dispatch = useDispatch();
+  const {addToWishList} = useWishList();
+  const {wishListItems} = useWishList()
 
   if (loading) {
     return <Flex justify="center" align="center" w="100%" h="100vh">
@@ -41,11 +41,17 @@ const HomePage = () => {
     }));
   };
   const handelAddToWishlist = (product) => {
-    dispatch(addWishlist(product))
+    addToWishList(product)
+    // dispatch(addWishlist(product))
   }
   function addToCart(product) {
     handelAddToCart(product);
   }
+
+//   useEffect(()=>{
+// setWishlist(wishListItems)
+
+//   })
 
   return (
     <Box w='100%' style={{ padding: "0px", marginTop: "25px" }}>
