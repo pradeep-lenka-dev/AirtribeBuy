@@ -35,6 +35,9 @@ const Header = () => {
   const handleClick = () => {
     showModal();
   };
+  const handleLogout = () => {
+    localStorage.removeItem('AuthToken')
+  }
   return (
     <AppShell
       header={{ height: 50 }}
@@ -111,6 +114,7 @@ const Header = () => {
                 <Menu.Item
                   color="red"
                   leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />}
+                  onClick={handleLogout}
                 >
                   Logout
                 </Menu.Item>
