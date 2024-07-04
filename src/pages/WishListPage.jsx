@@ -14,6 +14,11 @@ import { useWishList } from "../context/WishListContext";
 const WishListPage = () => {
   // const wishListProductList = useSelector((state) => state.addWishlist);
   const wishListProductList = useWishList()
+  const {deleteFromWishList} = useWishList()
+  const deletWishlist = (product) => {
+    console.log("🚀 ~ deletWishlist ~ product:", product)
+    deleteFromWishList(product)
+  }
   return (
     <Container style={{ marginTop: "60px" }}>
       <Title order={3}>
@@ -41,6 +46,8 @@ const WishListPage = () => {
                 right: "10px",
                 zIndex: 1,
               }}
+              onClick={() => deletWishlist(wishListProduct)}
+
             />
             <Card.Section padding={5}>
               <Image src={wishListProduct.image} height={160} fit='contain' style={{ margin: "5px", padding: "5px" }} />

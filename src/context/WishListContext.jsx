@@ -51,8 +51,25 @@ export const WishlistProvider = ({ children, userId }) => {
 
     };
 
+    const deleteFromWishList = async (product) => {
+        const userWishListRef = doc(db, "wishList", userId);
+        const wishListDoc = await getDoc(userWishListRef);
+        console.log("🚀 ~ deleteFromWishList ~ wishListDoc:", wishListDoc)
+    
+        if (wishListDoc.exists()) {
+            const wishListItems = wishListDoc.data().items;
+            const updatedWishList = wishListItems.filter(item => item.id !== product.id);
+    
+            await setDoc(userWishListRef, { items: updatedWishList });
+            setWishListItems(updatedWishList);
+        } else {
+            console.log("Wishlist does not exist.");
+        }
+    };
+    
+
     return (
-        <WishListContext.Provider value={{ wishListItems, addToWishList }}>
+        <WishListContext.Provider value={{ wishListItems, addToWishList,deleteFromWishList }}>
             {children}
         </WishListContext.Provider>
     );

@@ -26,8 +26,8 @@ const HomePage = () => {
   const [products, loading] = useGetAllProducts();
   const [wishlist, setWishlist] = useState({});
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const {addToWishList} = useWishList();
-  const {wishListItems} = useWishList()
+  const { addToWishList } = useWishList();
+  const { wishListItems } = useWishList()
 
   if (loading) {
     return <Flex justify="center" align="center" w="100%" h="100vh">
@@ -48,10 +48,10 @@ const HomePage = () => {
     handelAddToCart(product);
   }
 
-//   useEffect(()=>{
-// setWishlist(wishListItems)
+  //   useEffect(()=>{
+  // setWishlist(wishListItems)
 
-//   })
+  //   })
 
   return (
     <Box w='100%' style={{ padding: "0px", marginTop: "25px" }}>
@@ -105,24 +105,24 @@ const HomePage = () => {
                 Add To Cart
               </Button> */}
             {hoveredProduct == product.id ? (
-            <div className="wishlist-button-container">
-            <Chip
-              variant="outline"
-              size="md"
-              radius="sm"
-              className="full-width-chip"
-              checked={wishlist[product.id] || false}
-              onChange={() => toggleWishlist(product)}
-              onClick={() => handelAddToWishlist(product)}
-            >
-              {wishlist[product.id] ? (
-                <IconHeartFilled className="custom-chip-icon" />
-              ) : (
-                <IconHeart className="custom-chip-icon" />
-              )}
-              WISHLISTED
-            </Chip>
-          </div>
+              <div className="wishlist-button-container">
+                <Chip
+                  variant="outline"
+                  size="md"
+                  radius="sm"
+                  className="full-width-chip"
+                  checked={wishlist[product.id] || false}
+                  onChange={() => toggleWishlist(product)}
+                  onClick={() => handelAddToWishlist(product)}
+                >
+                  {wishlist[product.id] ? (
+                    <IconHeartFilled className="custom-chip-icon" />
+                  ) : (
+                    <IconHeart className="custom-chip-icon" />
+                  )}
+                  WISHLISTED
+                </Chip>
+              </div>
             ) : (
               <></>
             )}
